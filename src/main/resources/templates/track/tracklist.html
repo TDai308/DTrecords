@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../../../static/img/coollogo_com-5008664.png"/>
+    <link href="../../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>track</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval" style="z-index: -1"></div>
+<div class="admin_page__menu__manager">
+    <div class="admin_page__menu__manager__navigation">
+        <div class="admin_page__menu__manager__menu">
+            <a class="button__blue__with-a" href="/vinyllist">Quản lý sản phẩm</a>
+            <a class="button__blue__with-a" href="/tracklist">Quản lý bài hát</a>
+            <a class="button__blue__with-a" href="/artistlist">Danh sách nghệ sĩ</a>
+            <a class="button__blue__with-a" href="/genrelist">Danh sách thể loại</a>
+            <a class="button__blue__with-a" href="/orderlist">Quản lý đơn hàng</a>
+            <a class="button__blue__with-a" href="/customerlist">Quản lý khách hàng</a>
+        </div>
+        <div class="admin_page__menu__manager__logout">
+            <a class="button__red__with-a" href="/admin-logout">Đăng xuất</a>
+        </div>
+    </div>
+    <h1>Danh sách bài hát</h1>
+    <a class="button__blue__with-a margin-10px" href="/create-track">Thêm bài hát mới</a>
+    <table border="1" class="table_of_admin">
+        <tr>
+            <th>ID</th>
+            <th>Nghệ sĩ</th>
+            <th>Tên</th>
+            <th>Album</th>
+        </tr>
+        <th:block th:each="track : ${tracks}">
+            <tr>
+                <td th:text="${track.trackID}"></td>
+                <td th:text="${track.artistName}"></td>
+                <td th:text="${track.name}"></td>
+                <td th:text="${track.vinyl.name}"></td>
+                <td><a th:href="@{/edit-track/__${track.trackID}__ }">Sửa</a></td>
+                <td class="delete__button">Xóa</td>
+            </tr>
+        </th:block>
+    </table>
+    <th:block th:each="track : ${tracks}">
+        <div class="oval__notification">
+            <form class="admin_page__notification_delete" th:action="@{/delete-track/__${track.trackID}__}" method="post">
+                <p>Bạn có chắc muốn xóa???</p>
+                <p th:text="${track.name}+' - '+${track.artistName}"></p>
+                <div class="admin_page__notification_delete_btn">
+                    <input class="button__red__with-a" type="button" value="Không">
+                    <input class="button__blue__with-a" type="submit" value="Xóa">
+                </div>
+            </form>
+        </div>
+    </th:block>
+</div>
+</body>
+<script src="../../../static/js/indexAdmin.js"></script>
+</html>

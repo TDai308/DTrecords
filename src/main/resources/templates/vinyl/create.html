@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../../../static/img/coollogo_com-5008664.png"/>
+    <link href="../../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Create vinyl</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval" style="z-index: -1"></div>
+<form th:action="@{/create-vinyl}" th:object="${vinyl}" method="post" class="admin_page__menu__manager" style="width: 60%!important;">
+    <h1>Thêm thông tin sản phẩm mới</h1>
+    <a href="/vinyllist" class="button__blue__with-a">Danh sách sản phẩm</a>
+    <th:block th:if="${message}">
+        <p th:text="${message}"></p>
+    </th:block>
+    <label>
+        <input th:type="hidden" name="id" th:field="*{vinylID}">
+    </label>
+    <label class="has-float-label">
+        <input class="sign_up__input" label="name" required type="text" th:field="*{name}"/>
+        <span>Tên *</span>
+    </label>
+    <label class="has-float-label">
+        <select name="artist" class="sign_up__input">
+            <option th:each="a : ${artistList}"
+                    th:value="${a.IDartist}"
+                    th:text="${a.name}"
+            ></option>
+        </select>
+        <span>Tên nghệ sĩ *</span>
+    </label>
+    <label class="has-float-label">
+        <input class="sign_up__input" label="thumbnail1" required type="text" th:field="*{img1}"/>
+        <span>Thumbnail 1 *</span>
+    </label>
+    <label class="has-float-label">
+        <input class="sign_up__input" label="thumbnail2" required type="text" th:field="*{img2}"/>
+        <span>Thumbnail 2 *</span>
+    </label>
+    <label class="has-float-label">
+        <input class="sign_up__input" label="quantity" required type="text" th:field="*{quantity}"/>
+        <span>Số lượng *</span>
+    </label>
+    <label class="has-float-label">
+        <input id="input_price" class="sign_up__input" label="price" step="0.01" min="0" required type="number" th:field="*{price}"/>
+        <span>Giá *</span>
+    </label>
+    <label class="has-float-label">
+        <select name="genre" class="sign_up__input">
+            <option th:each="genre : ${genreList}"
+                    th:value="${genre.genreID}"
+                    th:text="${genre.genrename}"
+            ></option>
+        </select>
+        <span>Thể Loại *</span>
+    </label>
+    <label class="has-float-label">
+        <select name="nation" class="sign_up__input">
+            <option value="Việt Nam">Việt Nam</option>
+            <option value="Mỹ">Mỹ</option>
+            <option value="Hàn Quốc">Hàn Quốc</option>
+        </select>
+        <span>Quốc gia *</span>
+    </label>
+    <label class="has-float-label">
+        <select name="onSale" class="sign_up__input" id="onsale">
+            <option value="1" th:text="Có"></option>
+            <option value="0" th:text="Không" selected></option>
+        </select>
+        <span>Giảm Giá *</span>
+    </label>
+    <label class="has-float-label">
+        <input class="sign_up__input" label="salePrice" required type="number" step="0.01" min="0" th:field="*{salePrice}" id="onsalePrice"/>
+        <span id="onsalePriceSpan">Giá sau khi giảm *</span>
+    </label>
+    <input class="button_Login_Signup" type="submit" value="Cập nhật thông tin sản phẩm">
+</form>
+</body>
+<script>
+    let onsale = document.getElementById("onsale");
+    let input_price = document.getElementById("input_price");
+    let onsalePrice = document.getElementById("onsalePrice");
+    if (onsale.value === "0") {
+        onsalePrice.value = 0;
+        onsalePrice.setAttribute("max",0);
+    }
+    let price=0;
+    input_price.addEventListener("change", function () {
+        price = input_price.value;
+        if (onsale.value === "1") {
+            onsalePrice.setAttribute("max",price);
+        }
+    })
+    onsale.addEventListener("change", function () {
+        if (onsale.value === "0") {
+            onsalePrice.value = 0;
+            onsalePrice.setAttribute("max",0);
+        }
+        else {
+            onsalePrice.value = "";
+            onsalePrice.setAttribute("max",price);
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../../static/img/coollogo_com-5008664.png"/>
+    <link href="../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Artist</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval" style="z-index: -1"></div>
+<div class="admin_page__menu__manager">
+    <div class="admin_page__menu__manager__navigation">
+        <div class="admin_page__menu__manager__menu">
+            <a class="button__blue__with-a" href="/vinyllist">Quản lý sản phẩm</a>
+            <a class="button__blue__with-a" href="/tracklist">Quản lý bài hát</a>
+            <a class="button__blue__with-a" href="/artistlist">Danh sách nghệ sĩ</a>
+            <a class="button__blue__with-a" href="/genrelist">Danh sách thể loại</a>
+            <a class="button__blue__with-a" href="/orderlist">Quản lý đơn hàng</a>
+            <a class="button__blue__with-a" href="/customerlist">Quản lý khách hàng</a>
+        </div>
+        <div class="admin_page__menu__manager__logout">
+            <a class="button__red__with-a" href="/admin-logout">Đăng xuất</a>
+        </div>
+    </div>
+    <h1>Danh sách nghệ sĩ</h1>
+    <form th:action="@{/create-artist}" class="form_add margin-10px" th:object="${artist}" method="post">
+        <label>
+            <input th:type="hidden" name="id" th:field="*{IDartist}">
+        </label>
+        <label class="has-float-label margin-0px">
+            <input class="sign_up__input" label="name" required type="text" th:field="*{name}"/>
+            <span>Tên Nghệ Sĩ*</span>
+        </label>
+        <input class="button__blue__with-a" type="submit" value="Thêm Nghệ Sĩ">
+    </form>
+    <table border="1" class="table_of_admin">
+        <tr>
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th>Tên</th>
+        </tr>
+        <th:block th:each="artist : ${artists}">
+            <tr>
+                <td th:text="${artist.IDartist}"></td>
+                <td>
+                    <img style="width: 40%" th:src="@{/static/img/artistImg/__${artist.name}__.png}" alt="">
+                </td>
+                <td>
+                    <form th:action="@{/edit-artist/__${artist.IDartist}__}" method="post" class="form_edit">
+                        <input class="input_edit" type="text" name="artistName" disabled th:value="${artist.name}">
+                    </form>
+                </td>
+                <td>
+                    <button class="button_edit">Sửa</button>
+                    <button class="button_save">Lưu</button>
+                    <button class="button_cancel" onclick="">Hủy</button>
+                </td>
+                <td class="delete__button">Xóa</td>
+            </tr>
+        </th:block>
+    </table>
+    <th:block th:each="artist : ${artists}">
+        <div class="oval__notification">
+            <form class="admin_page__notification_delete" th:action="@{/delete-artist/__${artist.IDartist}__}" method="post">
+                <p>Bạn có chắc muốn xóa???</p>
+                <p th:text="${artist.name}"></p>
+                <div class="admin_page__notification_delete_btn">
+                    <input class="button__red__with-a" type="button" value="Không">
+                    <input class="button__blue__with-a" type="submit" value="Xóa">
+                </div>
+            </form>
+        </div>
+    </th:block>
+</div>
+</body>
+<script src="../../../static/js/indexAdmin.js"></script>
+<script>
+    let button_edit = document.getElementsByClassName("button_edit");
+    let button_save = document.getElementsByClassName("button_save");
+    let button_cancel = document.getElementsByClassName("button_cancel");
+    let edit_form = document.getElementsByClassName("form_edit");
+    let edit_input = document.getElementsByClassName("input_edit");
+    let artistName = [];
+    for (let i=0;i<edit_input.length;i++) {
+        artistName.push(edit_input[i].value);
+    }
+    for (let i = 0; i<button_edit.length;i++) {
+        button_edit[i].addEventListener("click", function () {
+            button_save[i].style.display = "block";
+            button_cancel[i].style.display = "block";
+            button_edit[i].style.display = "none";
+            edit_input[i].disabled = false;
+            edit_input[i].style.textDecoration = "underline";
+            for (let j = 0; j<button_edit.length;j++) {
+                if (j!==i) {
+                    button_edit[j].disabled = true;
+                }
+            }
+        })
+    }
+
+    for (let i = 0; i<button_cancel.length;i++) {
+        button_cancel[i].addEventListener("click", function () {
+            button_save[i].style.display = "none";
+            button_edit[i].style.display = "block";
+            button_cancel[i].style.display = "none";
+            edit_input[i].disabled = true;
+            edit_input[i].value = artistName[i];
+            edit_input[i].style.textDecoration = "none";
+            for (let j = 0; j<button_edit.length;j++) {
+                button_edit[j].disabled = false;
+            }
+        })
+    }
+
+    for (let i = 0; i<button_save.length;i++) {
+        button_save[i].addEventListener("click", function () {
+            edit_form[i].submit();
+        })
+    }
+</script>
+</html>

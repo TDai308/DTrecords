@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../../static/img/coollogo_com-5008664.png"/>
+    <link href="../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Admin Login</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval">
+    <div class="admin_page__login">
+        <div class="admin_page__menu__image">
+            <div id="admin_login_image" class="admin_login_image">
+                <img src="../../static/img/consult.png" alt="consult">
+            </div>
+            <p class="admin_page__login__question">Bạn quên mật khẩu???</p>
+            <p class="admin_page__login__error">Chứng tỏ bạn không phải admin.</p>
+        </div>
+        <form class="login__form__admin" action="/admin/login/" method="post">
+            <h1>Admin Login</h1>
+            <label class="has-float-label">
+                <input class="sign_up__input" name="name" label="name" required type="text">
+                <span>Name *</span>
+            </label>
+
+            <label class="has-float-label">
+                <input class="sign_up__input" name="password" label="Password" required type="password">
+                <span>Password *</span>
+            </label>
+            <span style="color: red" th:text="${message}"></span>
+            <button class="button_Login_Signup" type="submit">Đăng Nhập</button>
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    let admin_login_image = document.getElementById("admin_login_image");
+    admin_login_image.style.height = admin_login_image.getBoundingClientRect().width+"px";
+</script>
+</html>

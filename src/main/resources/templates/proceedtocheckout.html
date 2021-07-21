@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/img/coollogo_com-5008664.png"/>
+    <link href="../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../static/css/grid.css" rel="stylesheet" type="text/css" th:href="@{/static/css/grid.css}">
+    <link href="../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Check Out</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval">
+    <form class="sign_up__form" th:action="@{/ProceedToCheckout}" method="post">
+        <h1 class="sign_up__header">Hãng Đĩa Trọng Đại</h1>
+        <h2>Kiểm Tra Đơn Hàng Của Bạn.</h2>
+
+        <div class="grid">
+            <div class="row sm-gutter app-content">
+                <div class="col l-8">
+                    <div class="order__form">
+                        <label class="has-float-label">
+                            <input class="sign_up__input" label="Name" name="customerName" required type="text" th:value="${customerName}">
+                            <span>Tên *</span>
+                        </label>
+
+                        <label class="has-float-label">
+                            <input class="sign_up__input" label="Phone" name="customerPhone" required type="tel" pattern="[0-9]{4}[0-9]{3}[0-9]{3}" th:value="${customerPhone}">
+                            <span>Số Điện Thoại *</span>
+                        </label>
+
+                        <label class="has-float-label">
+                            <input class="sign_up__input" label="Email" name="customerEmail" required type="email" th:value="${customerEmail}">
+                            <span>Email *</span>
+                        </label>
+
+                        <label class="has-float-label">
+                            <input class="sign_up__input" label="Address" name="customerAddress" required type="text" th:value="${customerAddress}">
+                            <span>Địa chỉ *</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col l-4">
+                    <div class="order_cart">
+                        <th:block th:each="vinyl: ${selectedVinyl}">
+                            <div class="shopping_cart_item">
+                                <div class="shopping_cart_item_img">
+                                    <img th:src="@{/static/img/vinylImg/__${vinyl.getKey().name}__-__${vinyl.getKey().artist.name}__/__${vinyl.getKey().img1}__}" th:alt="${vinyl.getKey().name}">
+                                </div>
+                                <div class="shopping_cart_item_infor_delete">
+                                    <div class="shopping_cart_item_infor">
+                                        <div class="shopping_cart_item_title">
+                                            <p class="shopping_cart_item_name" th:text="${vinyl.getKey().name}"></p>
+                                            <p class="shopping_cart_item_artistName" th:text="${vinyl.getKey().artist.name}"></p>
+                                            <p style="color: var(--gray-coler); margin: 4px 0">In Stock</p>
+                                        </div>
+                                        <div class="shopping_cart_item_quantity_price">
+                                            <p class="shopping_cart_item_quantity" th:text="'Q: ' + ${vinyl.getValue()}"></p>
+                                            <p th:if="${vinyl.getKey().onSale}==false" class="shopping_cart_item_price" th:text="'P: '+${vinyl.getValue() * vinyl.getKey().price}+'$'"></p>
+                                            <p th:if="${vinyl.getKey().onSale}==true" class="shopping_cart_item_price" th:text="'P: '+${vinyl.getValue() * vinyl.getKey().salePrice}+'$'"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                    <div class="order_totalPrice">
+                        <p style="margin: 0 5px 0; display: inline-block">Free Ship Với</p>
+                        <i style="color: var(--red-color); background: yellow; display: inline-block" class="fab fa-dhl fa-3x"></i>
+                    </div>
+                    <div class="order_totalPrice">Tổng Tiền: <span th:text="${totalPrice}"></span>$</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="button_Login_Signup" type="submit">Xác Nhận Đơn Hàng</button>
+    </form>
+</div>
+</body>
+</html>

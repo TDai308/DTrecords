@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View province</title>
+</head>
+<body>
+<h1>View vinyl: <span th:text="${vinyl.name}"></span></h1>
+<a href="/vinyllist">vinyl list</a>
+<table border="1">
+  <tr>
+    <th>Artis</th>
+    <th>Name</th>
+  </tr>
+  <th:block th:each="track : ${tracks}">
+    <tr>
+      <td th:text="${track.artistName}"></td>
+      <td th:text="${track.name}"></td>
+    </tr>
+  </th:block>
+</table>
+</body>
+</html>

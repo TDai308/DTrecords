@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../../../static/img/coollogo_com-5008664.png"/>
+    <link href="../../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Order</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval" style="z-index: -1"></div>
+<div class="admin_page__menu__manager">
+    <div class="admin_page__menu__manager__navigation">
+        <div class="admin_page__menu__manager__menu">
+            <a class="button__blue__with-a" href="/vinyllist">Quản lý sản phẩm</a>
+            <a class="button__blue__with-a" href="/tracklist">Quản lý bài hát</a>
+            <a class="button__blue__with-a" href="/artistlist">Danh sách nghệ sĩ</a>
+            <a class="button__blue__with-a" href="/genrelist">Danh sách thể loại</a>
+            <a class="button__blue__with-a" href="/orderlist">Quản lý đơn hàng</a>
+            <a class="button__blue__with-a" href="/customerlist">Quản lý khách hàng</a>
+        </div>
+        <div class="admin_page__menu__manager__logout">
+            <a class="button__red__with-a" href="/admin-logout">Đăng xuất</a>
+        </div>
+    </div>
+    <h1>Danh sách đơn hàng</h1>
+    <table border="1" class="table_of_admin">
+        <tr>
+            <th>Mã đơn hàng</th>
+            <th>Tên khách hàng</th>
+            <th>Số điện thoại</th>
+            <th>Email</th>
+            <th>Địa chỉ</th>
+            <th>Sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Số tiền</th>
+            <th>Thời gian mua hàng</th>
+            <th>Tình trạng đơn hàng</th>
+        </tr>
+        <th:block th:each="order : ${orders}">
+            <tr>
+                <td th:text="${order.ordercode}"></td>
+                <td th:text="${order.name}"></td>
+                <td th:text="${order.phone}"></td>
+                <td th:text="${order.email}"></td>
+                <td th:text="${order.address}"></td>
+                <td th:text="${order.vinyl.name}+'-'+${order.vinyl.artist.name}"></td>
+                <td th:text="${order.quantity}"></td>
+                <td th:text="${order.price}"></td>
+                <td th:text="${order.dateTime}"></td>
+                <td>
+                    <form th:action="@{/save_order/__${order.id}__}" method="post" class="save_form">
+                        <select name="delivery" class="delivery">
+                            <option value="Đang xử lý" th:selected="${order.delivery}=='Đang xử lý'">Đang xử lý</option>
+                            <option value="Đang gửi đến dịch vụ vận chuyển" th:selected="${order.delivery=='Đang gửi đến dịch vụ vận chuyển'}">Đang gửi đến dịch vụ vận chuyển</option>
+                            <option value="Đang giao hàng" th:selected="${order.delivery=='Đang giao hàng'}">Đang giao hàng</option>
+                            <option value="Đã giao hàng" th:selected="${order.delivery=='Đã giao hàng'}">Đã giao hàng</option>
+                            <option value="Xử lý không thành công" th:selected="${order.delivery}=='Xử lý không thành công'">Xử lý không thành công</option>
+                        </select>
+                    </form>
+                </td>
+                <td><button class="save_button" disabled>Lưu</button></td>
+                <td class="delete__button">Xóa</td>
+            </tr>
+        </th:block>
+    </table>
+    <th:block th:each="order : ${orders}">
+        <div class="oval__notification">
+            <form class="admin_page__notification_delete" th:action="@{/delete-order/__${order.id}__}" method="post">
+                <p>Bạn có chắc muốn xóa???</p>
+                <p th:text="${order.vinyl.name}+'-'+${order.vinyl.artist}+' - Đơn hàng ' +${order.ordercode}"></p>
+                <div class="admin_page__notification_delete_btn">
+                    <input class="button__red__with-a" type="button" value="Không">
+                    <input class="button__blue__with-a" type="submit" value="Xóa">
+                </div>
+            </form>
+        </div>
+    </th:block>
+</div>
+</body>
+<script src="../../../static/js/indexAdmin.js"></script>
+<script>
+    let delivery = document.getElementsByClassName("delivery");
+    let save_form = document.getElementsByClassName("save_form");
+    let save_button = document.getElementsByClassName("save_button");
+    let delivery_status = [];
+    for (let i = 0 ;i<save_form.length;i++) {
+        delivery_status.push(delivery[i].value);
+    }
+    console.log(delivery_status);
+    for (let i = 0 ;i<delivery.length;i++) {
+        save_button[i].addEventListener("click", function () {
+            save_form[i].submit();
+        })
+        delivery[i].addEventListener("change",function () {
+            if (delivery[i].value === delivery_status[i]) {
+                save_button[i].disabled = true;
+            } else save_button[i].disabled = false;
+        })
+    }
+</script>
+</html>

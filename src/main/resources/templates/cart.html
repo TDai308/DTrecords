@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/img/coollogo_com-5008664.png"/>
+    <link href="../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../static/css/grid.css" rel="stylesheet" type="text/css" th:href="@{/static/css/grid.css}">
+    <link href="../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Giỏ Hàng</title>
+</head>
+<body>
+<div class="header">
+    <div class="grid wide">
+        <div class="header__nav">
+            <div class="header__logo_menu">
+                <div class="header__logo">
+                    <a href="/">
+                        <img src="../static/img/logo.png" th:src="@{/static/img/logo.png}" alt="DTRecords" >
+                    </a>
+                </div>
+                <div class="header__menu" id="product_menu">
+                    <a href="/all-vinyl-product?sortOption=vinylIDdesc" class="header__menu-link">
+                        Cửa Hàng
+                        <i class="fas fa-angle-down" id="product_menu__icon"></i>
+                    </a>
+                    <div class="product_menu">
+                        <ul class="product_menu__selectors">
+                            <li class="product_menu__selector">
+                                <ul class="product_menu__list">
+                                    <li>
+                                        <h2 class="product__selector__header">Sản phẩm</h2>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/justAdded" class="product__selector">Sản phẩm mới</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/under10Dollars?sortOption=vinylIDdesc" class="product__selector">Dưới $10</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/under20Dollars?sortOption=vinylIDdesc" class="product__selector">Dưới $20</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/under30Dollars?sortOption=vinylIDdesc" class="product__selector">Dưới $30</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/over30Dollars?sortOption=vinylIDdesc" class="product__selector">Trên $30</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product?sortOption=vinylIDdesc" class="product__selector font_weight_500">Tất cả đĩa than</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="product_menu__selector">
+                                <ul class="product_menu__list">
+                                    <li>
+                                        <h2 class="product__selector__header">Thể Loại</h2>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/popVinyl?sortOption=vinylIDdesc" class="product__selector">Pop</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/rockVinyl?sortOption=vinylIDdesc" class="product__selector">Rock</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/r&bVinyl?sortOption=vinylIDdesc" class="product__selector">R&B</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/hiphopVinyl?sortOption=vinylIDdesc" class="product__selector">HipHop</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product/countryVinyl?sortOption=vinylIDdesc" class="product__selector">Country</a>
+                                    </li>
+                                    <li>
+                                        <a href="/all-vinyl-product?sortOption=vinylIDdesc" class="product__selector font_weight_500">Xem toàn bộ thể loại</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header__menu" id="blog_menu">
+                    <a href="" class="header__menu-link">
+                        Bản Tin Trọng Đại
+                        <i class="fas fa-angle-down"  id="blog_menu__icon"></i>
+                    </a>
+                    <div class="product_menu">
+                        <ul class="product_menu__selectors">
+                            <li class="product_menu__selector">
+                                <h2 class="blogs__selector__header"><a href="" class="product__selector__header">News!</a></h2>
+                            </li>
+                            <li class="product_menu__selector">
+                                <h2 class="blogs__selector__header"><a href="" class="product__selector__header">Top100!</a></h2>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="header__account_cart">
+                <th:block th:if="${setCustomer}!=''">
+                    <div class="header__account">
+                        <a href="/" class="header__account__link">
+                            <i class="fas fa-user-circle"></i>
+                        </a>
+                        <ul class="header__account__category">
+                            <li class="header__account__category-list">
+                                <p class="header__account__title">Đăng nhập với tư cách:</p>
+                                <p class="header__account__name" th:text="${setCustomer}"></p>
+                            </li>
+                            <li class="header__account__category-list">
+                                <a href="/showEditForm">Chỉnh sửa hồ sơ</a>
+                            </li>
+                            <li class="header__account__category-list">
+                                <a href="/">Lịch sử mua hàng</a>
+                            </li>
+                            <li class="header__account__category-list">
+                                <a href="/log-out">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th:block>
+                <th:block th:if="${setCustomer}==''">
+                    <a href="/signup" class="button__balck__with-a">Đăng Ký</a>
+                    <a href="/showlogin" class="button__blue__with-a">Đăng Nhập</a>
+                </th:block>
+                <div class="header__cart">
+                    <a href="" class="header__cart_icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="cart__quantity" th:if="not ${selectedVinyl.isEmpty()}" th:text="${quantity}"></div>
+                    </a>
+                    <div class="header__shopping_cart">
+                        <h2 class="shopping_cart__header">Giỏ Hàng Của Bạn</h2>
+                        <div class="shopping_cart_view">
+                            <div class="shopping_cart_list" th:if="not ${selectedVinyl.isEmpty()}">
+                                <th:block th:each="vinyl: ${selectedVinyl}">
+                                    <div class="shopping_cart_item">
+                                        <div class="shopping_cart_item_img">
+                                            <img th:src="@{/static/img/vinylImg/__${vinyl.getKey().name}__-__${vinyl.getKey().artist.name}__/__${vinyl.getKey().img1}__}" th:alt="${vinyl.getKey().name}" src="" alt="">
+                                        </div>
+                                        <div class="shopping_cart_item_infor_delete">
+                                            <div class="shopping_cart_item_infor">
+                                                <div class="shopping_cart_item_title">
+                                                    <p class="shopping_cart_item_name" th:text="${vinyl.getKey().name}"></p>
+                                                    <p class="shopping_cart_item_artistName" th:text="${vinyl.getKey().artist.name}"></p>
+                                                    <p style="color: var(--gray-coler); margin: 4px 0">In Stock</p>
+                                                </div>
+                                                <div class="shopping_cart_item_quantity_price">
+                                                    <p class="shopping_cart_item_quantity" th:text="'Q: ' + ${vinyl.getValue()}"></p>
+                                                    <p th:if="${vinyl.getKey().onSale}==false" class="shopping_cart_item_price" th:text="'P: '+${vinyl.getValue() * vinyl.getKey().price}+'$'"></p>
+                                                    <p th:if="${vinyl.getKey().onSale}==true" class="shopping_cart_item_price" th:text="'P: '+${vinyl.getValue() * vinyl.getKey().salePrice}+'$'"></p>
+                                                </div>
+                                            </div>
+                                            <div class="shopping_cart_item_delete">
+                                                <a th:href="@{/remove/__${vinyl.getKey().vinylID}__}"><i class="fas fa-trash-alt"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                            <p th:if="${selectedVinyl.isEmpty()}" class="shopping_cart_empty">Bạn không có sản phẩm nào trong giỏ hàng.</p>
+                        </div>
+                        <a href="/toCart" th:if="not ${selectedVinyl.isEmpty()}" class="button__red__with-a">Đi đến giỏ hàng của bạn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="grid wide">
+        <div class="container__search_bar">
+            <h1 class="container__header">
+                Thiên đường âm nhạc dành cho bạn, nơi kết nối bạn với những nghệ sỹ và ban nhạc trên toàn thế giới!!!
+            </h1>
+            <div class="search_bar">
+                <input id="s" placeholder="Tìm kiếm đĩa than yêu thích của bạn" type="text" class="search_bar__input" onkeydown="searchEnter(event)">
+                <button type="button" class="search_bar__button"><i class="fas fa-search" onclick="goToLocation()"></i></button>
+            </div>
+        </div>
+        <div th:if="${selectedVinyl.isEmpty()}">
+            <h1>Bạn chưa thêm món đồ nào vào giỏ hàng nè :(((((</h1>
+        </div>
+        <div th:if="not ${selectedVinyl.isEmpty()}">
+            <h1 class="cart__title">Giỏ hàng của bạn</h1>
+            <div class="row sm-gutter app-content">
+                <div class="col l-9">
+                    <th:block th:each="vinyl: ${selectedVinyl}">
+                        <div class="cart__product_items">
+                            <div class="cart__product_img">
+                                <img th:src="@{/static/img/vinylImg/__${vinyl.getKey().name}__-__${vinyl.getKey().artist.name}__/__${vinyl.getKey().img1}__}" th:alt="${vinyl.getKey().name}">
+                            </div>
+                            <div class="cart__product_infor">
+                                <h3>Vinyl Record</h3>
+                                <div class="cart__product_name" th:text="${vinyl.getKey().name}+' - '+${vinyl.getKey().artist.name}"></div>
+                                <div class="cart__product_quantity_and_price">
+                                    <form class="cart__product_quantity" th:action="@{changeNumber/__${vinyl.getKey().vinylID}__/}">
+                                        <input class="quantity__product" type="number" name="number" min="1" th:max="${vinyl.getKey().quantity}" th:value="${vinyl.getValue()}">
+                                        <input class="quantity__save_button" type="submit" value="Save">
+                                    </form>
+                                    <div class="cart__product_price" th:switch="${vinyl.getKey().onSale}">
+                                        <div th:case="false">
+                                            <div th:text="'Price: '+${vinyl.getValue() * vinyl.getKey().price}+'$'"></div>
+                                        </div>
+                                        <div th:case="true">
+                                            <div th:text="'Price: '+${vinyl.getValue() * vinyl.getKey().salePrice}+'$'"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cart__product_delete">
+                                    <span style="font-size: 1rem;color: var(--gray-coler)">Hiện đang có sẵn</span>
+                                    <a style="margin-right: 10px" th:href="@{remove/__${vinyl.getKey().vinylID}__}"><i class="fas fa-trash-alt"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+
+                <div class="col l-3">
+                    <div class="cart__total_price">
+                        <h2>Tổng Đơn Hàng</h2>
+                        <div class="subtotal">
+                            <p class="cart__total_price__title">Tổng phụ:</p>
+                            <p class="subtotal_price" th:text="${totalPrice}+'$'"></p>
+                        </div>
+                        <div class="total">
+                            <p class="cart__total_price__title">Tổng:</p>
+                            <p class="total_price" th:text="${totalPrice}+'$'"></p>
+                        </div>
+                        <div class="button_checkout">
+                            <a href="/ProceedToCheckout" class="button__blue__with-a width_100">Kiểm tra thông tin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="grid wide">
+        <div class="row sm-gutter app-content">
+            <div class="col l-3">
+                <div class="footer__part">
+                    <h2>Tài khoản</h2>
+                    <ul>
+                        <li><a class="footer_link" href="">Quản lý tài khoản</a></li>
+                        <li><a class="footer_link" href="">Lịch sử mua hàng</a></li>
+                        <li><a class="footer_link" href="">Những sản phẩm yêu thích</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col l-3">
+                <div class="footer__part">
+                    <h2>Hỗ trợ</h2>
+                    <ul>
+                        <li><a class="footer_link" href="">Giải đáp thắc mắc</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col l-3">
+                <div class="footer__part">
+                    <h2>DTRecords</h2>
+                    <ul>
+                        <li><a class="footer_link" href="">Giới thiệu</a></li>
+                        <li><a class="footer_link" href="">Người sáng lập</a></li>
+                        <li><a class="footer_link" href="">Đội ngũ phục vụ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col l-3">
+                <div class="footer__part">
+                    <h2>Liên hệ</h2>
+                    <ul>
+                        <li><a class="footer_link" href="https://www.facebook.com/dai.tran.99/">Facebook <i class="fab fa-facebook-f"></i></a></li>
+                        <li><a class="footer_link" href="https://www.instagram.com/tdai308/">Instagram <i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer__thanks">
+            <div class="footer__logo">
+                <img src="../static/img/coollogo_com-1546772.png" alt="DTRECORDS">
+            </div>
+            <div class="footer__thanks_and_year">
+                <i class="far fa-copyright"></i>2077 - bản quyền của Trần Trọng Đại - Hãng Đĩa Trọng Đại - DTRecords.<br>Shout out to Merchbar.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script th:src="@{/static/js/index.js}" src="../static/js/index.js"></script>
+</html>

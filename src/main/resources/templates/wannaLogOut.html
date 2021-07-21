@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="../static/img/coollogo_com-5008664.png"/>
+  <link href="../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+  <link href="../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+  <link href="../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+  <link href="../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+  <link href="../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+  <title>Đăng nhập</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval">
+  <div class="sign_up__form" >
+    <h1 class="sign_up__header">Hãng Đĩa Trọng Đại</h1>
+    <div class="sign_up__note">
+      <p th:text="'Bạn đã đăng nhập với tài khoản '+${cookieValue.getValue()}"></p>
+      <p th:text="'Bạn muốn đăng xuất khỏi tài khoản này hay trờ về trang chủ???'"></p>
+    </div>
+    <button class="button_Login_Signup" onclick="location.href='/log-out'">Đăng Xuất</button>
+    <span class="margin-10px">Hoặc</span>
+    <button type="button" class="button_Login_Signup" onclick="location.href='/'">Trở Về Trang Chủ</button>
+  </div>
+</div>
+</body>
+</html>

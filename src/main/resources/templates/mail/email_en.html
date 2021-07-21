@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title th:remove="all">Template for HTML email with inline image</title>
+</head>
+<body>
+<h1>Cảm ơn đã mua hàng của chúng tôi</h1>
+<p th:text="'Xin chào ' + ${customerName} + ','"></p>-->
+<p>Chúng tôi đã xử lý xong đơn hàng của bạn. </p>
+<p>Chúng tôi sẽ nhanh chóng liên hệ lại với bạn để xác nhận đơn hàng này.</p>
+<table border="1">
+    <tr>
+        <th>Sản phẩm</th>
+        <th>Số lượng</th>
+        <th>Giá</th>
+    </tr>
+    <th:block th:each="vinyl : ${selectedVinyl}">
+        <tr>
+            <th th:text="${vinyl.getKey().name}"></th>
+            <th th:text="${vinyl.getValue()}"></th>
+            <th th:text="${vinyl.getValue() * vinyl.getKey().realPrice}"></th>
+        </tr>
+    </th:block>
+</table>
+<p th:text="'Tổng tiền: '+ ${totalPrice}"></p>
+<h2>Địa chỉ thanh toán</h2>
+<div style="border: solid black 1px">
+    <p th:text="${customerName}"></p>
+    <p th:text="${customerAddress}"></p>
+    <p th:text="${customerPhone}"></p>
+    <p th:text="${customerEmail}"></p>
+</div>
+<h2>Địa chỉ giao hàng</h2>
+<div style="border: solid black 1px">
+    <p th:text="${customerName}"></p>
+    <p th:text="${customerAddress}"></p>
+</div>
+</body>
+</html>

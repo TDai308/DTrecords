@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/img/coollogo_com-5008664.png"/>
+    <link href="../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Đăng nhập</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval">
+    <form class="sign_up__form" th:action="@{/login}" th:object="${customer}" method="post">
+        <h1 class="sign_up__header">Hãng Đĩa Trọng Đại</h1>
+        <h2>Chào Mừng Quay Trở Lại.</h2>
+        <p class="log-in__title">Đăng nhập để tận hưởng những dịch vụ tốt</p>
+        <label class="has-float-label">
+            <input class="sign_up__input" label="Email" required type="email" th:field="*{email}">
+            <span>Email *</span>
+        </label>
+
+        <label class="has-float-label">
+            <input class="sign_up__input" label="Password" required type="password" th:field="*{password}">
+            <span>Mật Khẩu *</span>
+        </label>
+        <div>
+            <span style="color: red" th:text="${message}"></span>
+        </div>
+        <button class="button_Login_Signup" type="submit">Đăng Nhập</button>
+        <span class="margin-10px">Hoặc</span>
+        <button type="button" class="button_Login_Signup" onclick="location.href='/signup'">Đăng Ký</button>
+    </form>
+</div>
+</body>
+</html>

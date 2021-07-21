@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="../../static/img/coollogo_com-5008664.png"/>
+  <link href="../../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+  <link href="../../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+  <link href="../../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+  <link href="../../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+  <link href="../../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+  <title>Edit Customer</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval" style="z-index: -1"></div>
+<form th:action="@{/edit-customer}" th:object="${customer}" method="post" class="admin_page__menu__manager" style="width: 60%!important;">
+  <h1>Chỉnh sửa thông tin khách hàng</h1>
+  <a href="/customerlist" class="button__blue__with-a">Danh sách khách hàng</a>
+  <th:block th:if="${message}">
+    <p th:text="${message}"></p>
+  </th:block>
+  <label>
+    <input th:type="hidden" name="id" th:field="*{userID}">
+  </label>
+  <label class="has-float-label">
+    <input class="sign_up__input" label="User Name" required type="text" th:field="*{username}">
+    <span>Tên Người Dùng *</span>
+  </label>
+
+  <label class="has-float-label">
+    <input class="sign_up__input" id="passwordInput" label="Password" required type="text" th:field="*{password}">
+    <span>Mật Khẩu *</span>
+  </label>
+
+  <div class="width_100" style="display: flex; justify-content: space-between; align-items: center">
+    <label class="has-float-label width_45">
+      <input class="sign_up__input" label="Name" required type="text" th:field="*{name}">
+      <span>Họ Tên *</span>
+    </label>
+
+    <label class="has-float-label width_45">
+      <input class="sign_up__input" label="Phone" required type="text" th:field="*{phonenumber}">
+      <span>Số Điện Thoại *</span>
+    </label>
+  </div>
+
+  <label class="has-float-label">
+    <input class="sign_up__input" label="Email" required type="email" th:field="*{email}">
+    <th:block th:unless="${messageEmailError}">
+      <span>Email *</span>
+    </th:block>
+    <th:block th:if="${messageEmailError}">
+      <span>Email * <p class="message_Email_Error" th:text="${messageEmailError}"></p></span>
+    </th:block>
+  </label>
+
+  <label class="has-float-label">
+    <input class="sign_up__input" label="Address" required type="text" th:field="*{address}">
+    <span>Địa Chỉ *</span>
+  </label>
+  <input class="button_Login_Signup" type="submit" value="Cập nhật thông tin sản phẩm">
+</form>
+</body>
+<script>
+  let passwordInput = document.getElementById("passwordInput");
+  if (passwordInput.type === "text") {
+    passwordInput.type = "password";
+  } else {
+    passwordInput.type = "text";
+  }
+</script>
+</html>

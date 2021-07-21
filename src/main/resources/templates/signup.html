@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="../static/img/coollogo_com-5008664.png"/>
+    <link href="../static/css/reset.css" rel="stylesheet" type="text/css" th:href="@{/static/css/reset.css}">
+    <link href="../static/css/base.css" rel="stylesheet" type="text/css" th:href="@{/static/css/base.css}">
+    <link href="../static/css/style.css" rel="stylesheet" type="text/css" th:href="@{/static/css/style.css}">
+    <link href="../static/css/font.css" rel="stylesheet" type="text/css" th:href="@{/static/css/font.css}">
+    <link href="../static/icon/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/static/icon/fontawesome/css/all.min.css}">
+    <title>Sign up</title>
+</head>
+<body class="background-signup-loggin">
+<div class="oval">
+    <form class="sign_up__form" th:action="@{/signup}" th:object="${newCustomer}" method="post">
+        <h1 class="sign_up__header">Hãng Đĩa Trọng Đại</h1>
+        <h2>Tạo tài khoản.</h2>
+        <label class="has-float-label">
+            <input class="sign_up__input" label="User Name" required type="text" th:field="*{username}">
+            <span>Tên Tài Khoản *</span>
+        </label>
+
+        <label class="has-float-label">
+            <input class="sign_up__input" label="Password" required type="password" th:field="*{password}">
+            <span>Mật Khẩu *</span>
+        </label>
+
+        <div class="width_100" style="display: flex; justify-content: space-between; align-items: center">
+            <label class="has-float-label width_45" style="flex: unset">
+                <input class="sign_up__input" label="Name" required type="text" th:field="*{name}">
+                <span>Họ Tên *</span>
+            </label>
+
+            <label class="has-float-label width_45" style="flex: unset">
+                <input class="sign_up__input" label="Phone" required type="tel" th:field="*{phonenumber}">
+                <span>Số Điện Thoại *</span>
+                <div class= "validate_message">
+                    <p th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}" class="message_Email_Error"></p>
+                </div>
+            </label>
+        </div>
+
+        <label class="has-float-label">
+            <input class="sign_up__input" label="Email" required type="email" th:field="*{email}">
+            <span th:unless="${messageEmailError}">Email *</span>
+            <span th:if="${messageEmailError}">Email * <p class="message_Email_Error" th:text="${messageEmailError}"></p></span>
+        </label>
+
+        <label class="has-float-label">
+            <input class="sign_up__input" label="Address" required type="text" th:field="*{address}">
+            <span>Địa Chỉ *</span>
+        </label>
+
+        <button class="button_Login_Signup" type="submit">Đăng Ký</button>
+        <span class="margin-10px">Hoặc</span>
+        <button type="button" class="button_Login_Signup" onclick="location.href='/showlogin'">Đăng Nhập</button>
+    </form>
+</div>
+</body>
+</html>
