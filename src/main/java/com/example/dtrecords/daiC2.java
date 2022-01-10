@@ -4,4 +4,6 @@ public class daiC2 {
     private int id;
 
     private String name;
+
+    private Long phoneNumber;
 }
